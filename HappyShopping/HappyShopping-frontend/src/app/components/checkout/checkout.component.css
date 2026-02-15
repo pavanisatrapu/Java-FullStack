@@ -1,0 +1,98 @@
+.group-name{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+    width: 650px;
+    margin-bottom: 40px;
+}
+
+th{
+    background-color: #2874f0;
+    color: #fff;
+}
+label{
+    padding: 20px;
+    width: 180px;
+}
+input:focus{
+    outline: none;
+    background: #fff;
+    border: none;
+    border-bottom: 3px solid #2874f0;
+}
+.input-data{
+    padding: 3px;
+    border:1px solid #ccc;
+    border-radius: 3px; 
+}
+.cart-button{
+    margin-left: 75%;
+}
+
+.cartItems th{
+    background-color: #ff9f00;
+    color: #fff;
+    font-size: 14px;
+}
+.p-image{
+    width: 120px;
+}
+.p-details{
+    width: 120px;
+}
+.p-quantity{
+    width: 200px;
+}
+td img{
+    width: 60px;
+    height: 60px;
+}
+i{
+    color: #fff;
+}
+.quantity-items{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    width: 300px;
+}
+.subtotal{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.purchase{
+    margin-left: 77%;
+}
+.price-card{
+    box-shadow: #ff9f00 0px 0px 4px 0px;
+    margin: 5px;
+    width: 280px;
+    height: 240px;
+    padding: 40px;
+    position: sticky;
+    top: 120px;
+    font-weight: 600;
+}
+.price-details{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.main-content-flex{
+    display: flex;
+    padding-left: 0;
+    justify-content: space-between;
+    padding-right: 0;
+}
+.input-data-dropdown{
+    width: 202px;
+    height: 29px;
+    border:1px solid #ccc;
+    border-radius: 3px;
+}
+.error-msg{
+    font-size: 12px;
+    color: red;
+    width: 200px;
+    padding-bottom: 2px;
+    margin-left: 180px;
+
+}

@@ -1,0 +1,16 @@
+.product-menu{
+    padding: 20px;
+}
+ul{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+ul li a{
+    color: #ff9f00;
+    font-weight: 600;
+    text-decoration: none;
+}

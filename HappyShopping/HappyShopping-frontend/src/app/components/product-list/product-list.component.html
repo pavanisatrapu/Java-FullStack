@@ -1,0 +1,36 @@
+<div class="product-list">
+    <div class="p-row">
+        <div *ngFor="let temp of products">
+            <div class="product shadow p-3 mb-5 bg-white rounded">
+                <a routerLink="/products/{{currentCategoryId}}/{{temp.id}}">
+                    <img class="p-image" src="{{temp.imageUrl}}" alt="{{temp.name}}">
+                </a>
+                <a routerLink="/products/{{currentCategoryId}}/{{temp.id}}" class="a-p-name">
+                    <h2 class="p-name">{{temp.name}}</h2>
+                </a>
+                <div class="p-price">{{temp.unitPrice | currency:'INR'}}</div>
+                <div class="p-description">{{temp.description}}</div>
+                
+                <button (click)="addToCart(temp)" class="cart-button">{{cartService.isAddedToCart(temp.id) ? "Go to cart":"Add to cart"}}</button>
+                
+                
+                    <!-- <button (click)="addToCart(temp)" class="cart-button">Go to cart</button> -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="products?.length==0" class="alert alert-warning no-products" role="alert">
+    No Products found...
+</div>
+<div class="products-pagination" *ngIf="!searchMode && products?.length!==0"> 
+    <ngb-pagination class="products-paging" 
+                        [(page)]="pl_pageNumber" 
+                        [pageSize]="pl_pageSize" 
+                        [collectionSize]="pl_totalElements"
+                        [maxSize]="3"
+                        [boundaryLinks]="true"
+                        (pageChange)="listProducts()">
+    </ngb-pagination>
+    
+</div>

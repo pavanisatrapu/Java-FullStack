@@ -1,0 +1,73 @@
+<div class="cartItems">
+    <div *ngIf="cartList.length>0;else noCartList">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Product Image</th>
+                    <th style="width: 30%;">Product Details</th>
+                    <th style="width: 30%;">Quantity and Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempCartItem of cartList">
+                    <td><img src="{{tempCartItem.imageUrl}}"></td>
+                    <td>
+                        <p>{{tempCartItem.name}}</p>
+                        <p>{{tempCartItem.unitPrice | currency:'INR'}}</p>
+                    </td>
+                    <td>
+                        <div class="quantity-items">
+                        
+                            <div class="plus">
+                                <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="quantity-col">
+                                Quantity: {{tempCartItem.qunatity}}
+                            </div>
+                            <div class="minus">
+                                <button (click)="decrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <div class="remove-item">
+                                <button (click)="removeCartItem(tempCartItem)" class="btn btn-primary btn-sm">
+                                    Remove
+                                </button>
+                            </div>
+                
+                        </div>
+                        <p class="subtotal">Subtotal: {{tempCartItem.qunatity*tempCartItem.unitPrice | currency:'INR'}}</p>
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="shipping-price">
+                        <p>TotalQuantity: {{totalQuantity}}</p>
+                        <p *ngIf="totalPrice>100;then extraCharge1 else extraCharge2">
+                        </p>
+                        <ng-template #extraCharge1>
+                            <p>Shipping fee: FREE</p>
+                            <p>TotalPrice: <span style="font-weight:700">{{totalPrice | currency:'INR'}}</span></p>
+                        </ng-template>
+                        <ng-template #extraCharge2>
+                            <p>Shipping fee: ₹40</p>
+                            <p>TotalPrice: <span style="font-weight:700">{{totalPrice+40 | currency:'INR'}}</span></p>
+                        </ng-template>
+                        <div class="checkout-btn">
+                        <a routerLink="/checkout" class="cart-button">
+                            Checkout
+                        </a>
+                    </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noCartList>
+        <div class="alert alert-warning" role="alert">
+            Your Cart is empty.Add Products to cart...
+        </div>
+    </ng-template>
+</div>

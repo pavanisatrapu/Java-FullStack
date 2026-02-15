@@ -1,0 +1,10 @@
+<div class="product-details-div">
+    <!-- <ng-container *ngIf="product"> -->
+        <img src="{{product.imageUrl}}" alt="{{product.name}}" />
+        <div class="product-name">{{product.name}}</div>
+        <div class="product-price">{{product.unitPrice | currency:'INR'}}</div>
+        <div class="product-description">{{product.description}}</div>
+    <!-- </ng-container> -->
+    <button (click)="addToCart(product.id)" class="cart-button">{{cartService.isAddedToCart(product.id) ? "Go to cart":"Add to cart"}}</button>
+    <a routerLink="/category/{{categoryId}}" class="back-products">← Back to all products</a>
+</div>

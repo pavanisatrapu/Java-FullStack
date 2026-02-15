@@ -1,0 +1,12 @@
+<div class="container shadow p-3 mb-5 bg-white rounded order-placed">
+    <div class="row">
+        <div class="col-md-12">
+        <h3>Order Placed</h3>
+        <p>Your order has been placed successfully.</p>
+        <!-- <p>Order tracking number: {{ orderTrackingNumber }}</p> -->
+        <p>Order Quantity: {{ totalQuantity }}</p>
+        <p *ngIf="totalPrice<100;else shippingCharge">Order Total: {{ totalPrice }}</p>
+        <ng-template #shippingCharge>Order Total: {{ totalPrice+40 }}</ng-template>
+        </div>
+    </div>
+</div>

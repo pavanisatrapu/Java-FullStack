@@ -1,0 +1,15 @@
+<nav class="navbar-mystyles">
+    <a class="a-title" routerLink="/products" >Happy Shopping</a>
+    
+    <app-search-product></app-search-product>
+    <app-shopping-cart></app-shopping-cart>
+</nav>
+<div class="main-page">
+    <aside>
+        <app-product-category-memu></app-product-category-memu>
+    </aside>
+<!-- <app-product-list></app-product-list>  -->
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+.cartItems{
+    margin: 40px;
+}
+th{
+    background-color: #ff9f00;
+    color: #fff;
+}
+td img{
+    width: 60px;
+    height: 60px;
+}
+.alert{
+    padding: 30px;
+    font-size: 16px;
+}
+.shipping-price{
+    text-align: right;
+}
+
+i{
+    color: #fff;
+}
+.quantity-items{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    width: 300px;
+}
+.subtotal{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.cart-button{
+    text-decoration: none;
+    padding: 12px 14px;
+}
+.checkout-btn{
+    padding: 20px 0;
+}
+

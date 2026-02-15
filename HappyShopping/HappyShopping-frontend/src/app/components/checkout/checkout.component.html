@@ -1,0 +1,385 @@
+<div class="main-content main-content-flex">
+    <form [formGroup]="checkoutFormGroup" class="input-form" (ngSubmit)="onSubmit()">
+        <div formGroupName="customer" class="group-name">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <label>First Name</label>
+                                <input class="input-data" formControlName="firstName" type="text" />
+                                <div *ngIf="firstName?.invalid && (firstName?.dirty||firstName?.touched)"
+                                    >
+                                    <div *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        First Name is required
+                                    </div>
+                                    <div *ngIf="firstName?.errors?.['minlength']" class="error-msg">
+                                        Length of First Name is must be greater than 1
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Last Name</label>
+                                <input class="input-data" formControlName="lastName" type="text" />
+                                <div *ngIf="lastName?.invalid && (lastName?.dirty||lastName?.touched)">
+                                    <div *ngIf="lastName?.errors?.['required'] || lastName?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Last Name is required
+                                    </div>
+                                    <div *ngIf="lastName?.errors?.['minlength']" class="error-msg">
+                                        Length of Last Name is must be greater than 1
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input class="input-data" formControlName="email" type="text" />
+                                <div *ngIf="email?.invalid && (email?.dirty||email?.touched)">
+                                    <div *ngIf="email?.errors?.['required']" class="error-msg">
+                                        Email is required
+                                    </div>
+                                    <div *ngIf="email?.errors?.['pattern']" class="error-msg">
+                                        Enter valid email
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div formGroupName="shippingDetails" class="group-name">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Shipping Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <label>Country</label>
+                                <select formControlName="country" class="input-data-dropdown"
+                                    (change)="getStates('shippingDetails')">
+                                    <option *ngFor="let tempCountry of countries" [ngValue]="tempCountry">
+                                        {{tempCountry.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="shippingCountry?.invalid && (shippingCountry?.dirty||shippingCountry?.touched)">
+                                    <div *ngIf="shippingCountry?.errors?.['required']" class="error-msg">
+                                        Shippping Country is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>State</label>
+                                <select formControlName="state" class="input-data-dropdown">
+                                    <option *ngFor="let tempState of shippingAddressStates" [ngValue]="tempState">
+                                        {{tempState.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="shippingState?.invalid && (shippingState?.dirty||shippingState?.touched)">
+                                    <div *ngIf="shippingState?.errors?.['required']" class="error-msg">
+                                        Shipping State is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>City</label>
+                                <input class="input-data" formControlName="city" type="text" />
+                                <div *ngIf="shippingCity?.invalid && (shippingCity?.dirty||shippingCity?.touched)">
+                                    <div *ngIf="shippingCity?.errors?.['required'] || shippingCity?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Shipping City is required
+                                    </div>
+                                    <div *ngIf="shippingCity?.errors?.['minlength']" class="error-msg">
+                                        Length of shipping city must be greater than 2
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Street</label>
+                                <input class="input-data" formControlName="street" type="text" />
+                                <div *ngIf="shippingStreet?.invalid && (shippingStreet?.dirty||shippingStreet?.touched)">
+                                    <div *ngIf="shippingStreet?.errors?.['required'] || shippingStreet?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Shipping street is required
+                                    </div>
+                                    <div *ngIf="shippingStreet?.errors?.['minlength']" class="error-msg">
+                                        Length of shipping street must be greater than 2
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Pincode</label>
+                                <input class="input-data" formControlName="pinCode" type="text" />
+                                <div *ngIf="shippingPincode?.invalid && (shippingPincode?.dirty||shippingPincode?.touched)">
+                                    <div *ngIf="shippingPincode?.errors?.['required'] || shippingPincode?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Shipping pincode is required
+                                    </div>
+                                    <div *ngIf="shippingPincode?.errors?.['pattern']" class="error-msg">
+                                        Enter 6 digit pin code for shipping
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-bottom: 5px;">
+            <input class="input-data" type="checkbox" (change)="copyShippingAddressToBillingAddress($event)" />
+            <span style="margin-left: 5px;">Billing Address same as shipping address</span>
+        </div>
+        <div formGroupName="billingDetails" class="group-name">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Billing Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <label>Country</label>
+                                <select formControlName="country" class="input-data-dropdown"
+                                    (change)="getStates('billingDetails')">
+                                    <option *ngFor="let tempCountry of countries" [ngValue]="tempCountry">
+                                        {{tempCountry.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="billingCountry?.invalid && (billingCountry?.dirty||billingCountry?.touched)">
+                                    <div *ngIf="billingCountry?.errors?.['required']" class="error-msg">
+                                        Billing Country is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>State</label>
+                                <select formControlName="state" class="input-data-dropdown">
+                                    <option *ngFor="let tempState of billingAddressStates" [ngValue]="tempState">
+                                        {{tempState.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="billingState?.invalid && (billingState?.dirty||billingState?.touched)">
+                                    <div *ngIf="billingState?.errors?.['required']" class="error-msg">
+                                        Billing State is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>City</label>
+                                <input class="input-data" formControlName="city" type="text" />
+                                <div *ngIf="billingCity?.invalid && (billingCity?.dirty||billingCity?.touched)">
+                                    <div *ngIf="billingCity?.errors?.['required'] || billingCity?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Billing City is required
+                                    </div>
+                                    <div *ngIf="billingCity?.errors?.['minlength']" class="error-msg">
+                                        Length of billing city must be greater than 2
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Street</label>
+                                <input class="input-data" formControlName="street" type="text" />
+                                <div *ngIf="billingStreet?.invalid && (billingStreet?.dirty||billingStreet?.touched)">
+                                    <div *ngIf="billingStreet?.errors?.['required'] || billingStreet?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Billing street is required
+                                    </div>
+                                    <div *ngIf="billingStreet?.errors?.['minlength']" class="error-msg">
+                                        Length of billing street must be greater than 2
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Pincode</label>
+                                <input class="input-data" formControlName="pinCode" type="text" />
+                                <div *ngIf="billingPincode?.invalid && (billingPincode?.dirty||billingPincode?.touched)">
+                                    <div *ngIf="billingPincode?.errors?.['required'] || billingPincode?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Billing pincode is required
+                                    </div>
+                                    <div *ngIf="billingPincode?.errors?.['pattern']" class="error-msg">
+                                        Enter 6 digit pin code for billing
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="group-name">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Order Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="cartItems">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="p-image">Product Image</th>
+                                            <th class="p-details">Product Details</th>
+                                            <th class="p-quantity">Quantity and Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let tempCartItem of cartList">
+                                            <td><img src="{{tempCartItem.imageUrl}}"></td>
+                                            <td>
+                                                <p>{{tempCartItem.name}}</p>
+                                                <p>{{tempCartItem.unitPrice | currency:'INR'}}</p>
+                                            </td>
+                                            <td>
+                                                <div class="quantity-items">
+
+                                                    <div class="plus">
+                                                        <button (click)="incrementQuantity(tempCartItem)"
+                                                            class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="quantity-col">
+                                                        Quantity: {{tempCartItem.qunatity}}
+                                                    </div>
+                                                    <div class="minus">
+                                                        <button (click)="decrementQuantity(tempCartItem)"
+                                                            class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="remove-item">
+                                                        <button (click)="removeCartItem(tempCartItem)"
+                                                            class="btn btn-primary btn-sm">
+                                                            X
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                                <p class="subtotal">Subtotal:
+                                                    {{tempCartItem.qunatity*tempCartItem.unitPrice | currency:'INR'}}
+                                                </p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div formGroupName="creditCard" class="group-name">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Credit Card</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <label>Card Type</label>
+                                <input type="radio" id="visa" name="cardType" value="huey" formControlName="cardType" />
+                                <label for="visa">Visa</label>
+                                <input type="radio" id="mastercard" name="cardType" value="mastercard"
+                                    formControlName="cardType" />
+                                <label for="visa">Mastercard</label>
+                                <div *ngIf="creditCardType?.invalid && (creditCardType?.dirty||creditCardType?.touched)">
+                                    <div *ngIf="creditCardType?.errors?.['required']" class="error-msg">
+                                        Credit card type is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Name on Card</label>
+                                <input class="input-data" formControlName="nameOnCard" type="text" />
+                                <div *ngIf="creditCardNameOnCard?.invalid && (creditCardNameOnCard?.dirty||creditCardNameOnCard?.touched)">
+                                    <div *ngIf="creditCardNameOnCard?.errors?.['required'] || creditCardNameOnCard?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Name on credit card is required
+                                    </div>
+                                    <div *ngIf="creditCardNameOnCard?.errors?.['minlength']" class="error-msg">
+                                        Length of name on credit card must be greater than 2
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Card Number</label>
+                                <input class="input-data" formControlName="cardNumber" type="text" />
+                                <div *ngIf="creditCardNumber?.invalid && (creditCardNumber?.dirty||creditCardNumber?.touched)">
+                                    <div *ngIf="creditCardNumber?.errors?.['required'] || creditCardNumber?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Credit card number is required
+                                    </div>
+                                    <div *ngIf="creditCardNumber?.errors?.['pattern']" class="error-msg">
+                                        Length of credit card number length must be 16
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>CVV</label>
+                                <input class="input-data" formControlName="cvv" type="text" />
+                                <div *ngIf="creditCardCVV?.invalid && (creditCardCVV?.dirty||creditCardCVV?.touched)">
+                                    <div *ngIf="creditCardCVV?.errors?.['required'] || creditCardCVV?.errors?.['notOnlyWhitespace']" class="error-msg">
+                                        Credit  card CVV is required
+                                    </div>
+                                    <div *ngIf="creditCardCVV?.errors?.['pattern']" class="error-msg">
+                                        Enter 3 digits CVV number
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Expiration Year</label>
+                                <select formControlName="expirationYear" class="input-data-dropdown"
+                                    (change)="handleMonthsBasedOnYear()">
+                                    <option *ngFor="let year of creditCardYears">{{year}}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Expiration Month</label>
+                                <select formControlName="expirationMonth" class="input-data-dropdown">
+                                    <option *ngFor="let month of creditCardMoths">{{month}}</option>
+                                </select>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button type="submit" class="cart-button purchase">Purchase</button>
+        </div>
+    </form>
+    <div class="price-card">
+        <div class="price-details">
+            <p>Total Quantity</p>
+            <p>{{totalQuantity}}</p>
+        </div>
+        <div *ngIf="totalPrice>=100;else shippingFee">
+            <div class="price-details">
+                <p>Shipping Fee :</p>
+                <p style="font: size 12px;">FREE</p>
+            </div>
+        </div>
+        <ng-template #shippingFee>
+            <div class="price-details">
+                <p>Shipping Fee :</p>
+                <p>40</p>
+            </div>
+        </ng-template>
+        <div class="price-details">
+            <p>Total Price</p>
+            <p style="font-weight:700">{{totalPrice+40 | currency:'INR'}}</p>
+        </div>
+    </div>
+</div>

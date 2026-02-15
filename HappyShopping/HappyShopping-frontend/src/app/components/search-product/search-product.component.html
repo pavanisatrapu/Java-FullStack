@@ -1,0 +1,11 @@
+<div class="input-group mb-3 mt-3">
+        <input #searchInput (keyup.enter)="searchProducts(searchInput.value)" type="search"
+                class="form-control mr-sm-2 search-input" placeholder="Search product..."
+                aria-describedby="button-addon2" />
+        <div class="input-group-append">
+                <button (click)="searchProducts(searchInput.value)" class="btn btn-outline-light b-search" type="button"
+                        id="button-addon2">
+                        Search
+                </button>
+        </div>
+</div>
