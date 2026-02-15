@@ -30,7 +30,6 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         Set<OrderItem> orderItems=purchase.getOrderItems();
         orderItems.forEach(order::add);
-//        order.setOrderItems(orderItems);
 
         order.setBillingAddress(purchase.getBillingAddress());
         order.setShippingAddress(purchase.getShippingAddress());
